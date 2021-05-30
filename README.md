@@ -1,9 +1,15 @@
-## Documentation
+## Requirements
 
-* Explore the Terraform for Terraform [CLI](https://www.terraform.io/downloads.html).
-* Explore the Nodejs for npm [CLI](https://nodejs.org/en/).
-* Explore the Yarn for Yarn [CLI](https://classic.yarnpkg.com/en/docs/install#debian-stable).
-* Explore the CDK for cdktf [CLI](https://github.com/hashicorp/terraform-cdk/blob/main/docs/cli-commands.md).
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
 
 
 Add your AWS credentials as two environment variables, AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY, replacing AAAAAA with each respective values.
