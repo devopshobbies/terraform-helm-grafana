@@ -4,3 +4,4 @@ cdktf.log
 .gen
 .terraform
 .terraform*
+*terraform.tfstate*
