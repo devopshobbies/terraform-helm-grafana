@@ -1,13 +1,20 @@
 terraform {
   required_providers {
     helm = {
-      version = "~> 2.4.1"
+      version = "~> 2.5.1"
     }
     kubernetes = {
-      version = "~> 2.8.0"
-    }
-    aws = {
-      version = "~> 3.0.0"
+      version = "~> 2.11.0"
     }
   }
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
+}
+
+provider "kubernetes" {
+  config_path = "~/.kube/config"
 }

@@ -1,73 +1,28 @@
 resource "helm_release" "grafana" {
   name       = "grafana"
-  # repository = "https://grafana.github.io/helm-charts/"
-  chart      = "grafana/grafana"
-  version    = "6.23.2"
+  repository = "https://grafana.github.io/helm-charts"
+  chart      = "grafana"
+  namespace  = "monitoring"
+  version    = "6.29.1"
   wait       = "false"
-  values = [<<EOF
-# image:
-#   tag: 7.3.6
-# # nodeSelector:
-# #   purpose: monitoring
-# # tolerations:
-# # - key: "monitoringonly"
-# #   operator: "Equal"
-# #   value: "true"
-# #   effect: "NoSchedule"
-# adminPassword: Your_Password
-# ingress:
-#   enabled: true
-#   annotations: 
-#     kubernetes.io/ingress.class: traefik
-#   hosts: ["example.com"]
-# datasources: 
-#   datasources.yaml:
-#     apiVersion: 1
-#     datasources:
-#     - name: DEVQA
-#       type: prometheus
-#       url: http://prometheus-operator-kube-p-prometheus:9090
-#       access: proxy
-#       isDefault: true
-# plugins:
-#   - grafana-piechart-panel
-# notifiers:
-#   notifiers.yaml:
-#     notifiers:
-#     - name: slack-notifier
-#       type: slack
-#       uid: slack1
-#       is_default: true
-#       settings:
-#         url: Slack_URL
-#         recipient: '#grafana-alerts'
-# sidecar:
-#   image: 
-#     repository: kiwigrid/k8s-sidecar
-#     tag: 1.3.0
-#   dashboards:
-#     enabled: true
-#     label: grafana_dashboard
-#     folder: /tmp/dashboards
-#     defaultFolderName: null
-EOF
-  ]
+  values     = ["${file("values.yaml")}"]
 }
 
 # resource "kubernetes_config_map" "volumes-dashboard" {
 #   metadata {
-#     name = "volumes-dashboard-alerting"
+#     name      = "volumes-dashboard-alerting"
 #     namespace = "monitoring"
 #     labels = {
 #       grafana_dashboard = "dashboard"
 #     }
 #   }
 #   data = {
-#     "dashboard.json"   = "${file("${path.module}/grafana-dashboard/volume-alerting.json")}"
+#     "dashboard.json" = "${file("${path.module}/grafana-dashboard/volume-alerting.json")}"
 #   }
 # }
 
-# #other dashboard
+# # other dashboard
+
 # resource "kubernetes_config_map" "node" {
 #   metadata {
 #     name      = "node"
@@ -327,61 +282,61 @@ EOF
 # #Istio dashboard
 # resource "kubernetes_config_map" "istio-control-plane" {
 #   metadata {
-#     name = "istio-control-plane"
+#     name      = "istio-control-plane"
 #     namespace = "monitoring"
 #     labels = {
 #       grafana_dashboard = "dashboard"
 #     }
 #   }
 #   data = {
-#     "istio-control-plane.json"   = "${file("${path.module}/grafana-dashboard/istio-control-plane.json")}"
+#     "istio-control-plane.json" = "${file("${path.module}/grafana-dashboard/istio-control-plane.json")}"
 #   }
 # }
 # resource "kubernetes_config_map" "istio-mesh" {
 #   metadata {
-#     name = "istio-mesh"
+#     name      = "istio-mesh"
 #     namespace = "monitoring"
 #     labels = {
 #       grafana_dashboard = "dashboard"
 #     }
 #   }
 #   data = {
-#     "istio-mesh.json"   = "${file("${path.module}/grafana-dashboard/istio-mesh.json")}"
+#     "istio-mesh.json" = "${file("${path.module}/grafana-dashboard/istio-mesh.json")}"
 #   }
 # }
 # resource "kubernetes_config_map" "istio-performance" {
 #   metadata {
-#     name = "istio-performance"
+#     name      = "istio-performance"
 #     namespace = "monitoring"
 #     labels = {
 #       grafana_dashboard = "dashboard"
 #     }
 #   }
 #   data = {
-#     "istio-performance.json"   = "${file("${path.module}/grafana-dashboard/istio-performance.json")}"
+#     "istio-performance.json" = "${file("${path.module}/grafana-dashboard/istio-performance.json")}"
 #   }
 # }
 # resource "kubernetes_config_map" "istio-service" {
 #   metadata {
-#     name = "istio-service"
+#     name      = "istio-service"
 #     namespace = "monitoring"
 #     labels = {
 #       grafana_dashboard = "dashboard"
 #     }
 #   }
 #   data = {
-#     "istio-service.json"   = "${file("${path.module}/grafana-dashboard/istio-service.json")}"
+#     "istio-service.json" = "${file("${path.module}/grafana-dashboard/istio-service.json")}"
 #   }
 # }
 # resource "kubernetes_config_map" "istio-workload" {
 #   metadata {
-#     name = "istio-workload"
+#     name      = "istio-workload"
 #     namespace = "monitoring"
 #     labels = {
 #       grafana_dashboard = "dashboard"
 #     }
 #   }
 #   data = {
-#     "istio-workload.json"   = "${file("${path.module}/grafana-dashboard/istio-workload.json")}"
+#     "istio-workload.json" = "${file("${path.module}/grafana-dashboard/istio-workload.json")}"
 #   }
 # }
