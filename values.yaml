@@ -1,0 +1,49 @@
+adminPassword: "1234"
+replicas: 1
+
+image:
+  repository: grafana
+  tag: 6.29.1
+  pullPolicy: IfNotPresent
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: prometheus-k8s
+        type: prometheus
+        url: http://prometheus-k8s.monitoring.svc:9090
+        # prometheus-k8s => prometheus svc name
+        # monitoring => namespace
+        access: proxy
+        isDefault: true
+plugins:
+  - grafana-piechart-panel
+sidecar:
+  image:
+    repository: quay.io/kiwigrid/k8s-sidecar
+    tag: 1.15.6
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
+    folder: /tmp/dashboards
+
+# service:
+#   name: service
+#   type: ClusterIP
+#   port: 80
+#   targetPort: 3000
+
+# nodeSelector:
+#   purpose: monitoring
+# tolerations:
+#   - key: "monitoringonly"
+#     operator: "Equal"
+#     value: "true"
+#     effect: "NoSchedule"
+
+# ingress:
+#   enabled: true
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#   hosts: ["example.com"]
