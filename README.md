@@ -1,17 +1,17 @@
-## Requirements
+I test it with :
+Terraform v1.1.2
+provider helm v2.5.1
+provider hashicorp/kubernetes v2.11.0
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
+- Change adminPassword in values.yaml
+- for auto load prometheus:
+```
+prometheus svc name: prometheus-k8s
+prometheus namespace: monitoring
+```
+or change address datasources.datasources.url in values.yaml
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
-
-Run Terraform commands
+- Run Terraform commands
 ```
 terraform init
 terraform plan
