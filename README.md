@@ -1,15 +1,6 @@
-## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
+I test it with Terraform v1.1.2
+provider helm v2.5.1
+provider hashicorp/kubernetes v2.11.0
 
 Run Terraform commands
 ```
