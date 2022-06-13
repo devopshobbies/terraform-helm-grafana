@@ -32,4 +32,5 @@ if you want to recreate a machine without destroy and recreate whole the infrast
 `terraform taint [options] <address>`
 
 and new Recommand for Terraform v0.15.2 and later is -replace flag 
+
 `terraform apply -replace="aws_instance.example[0]"`
