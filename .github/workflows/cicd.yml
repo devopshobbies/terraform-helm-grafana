@@ -1,0 +1,49 @@
+name: CI/CD
+
+on:
+    pull_request: { branches: ["*"] }
+    push:
+        branches:
+            - "+([0-9])?(.{+([0-9]),x}).x"
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: hashicorp/setup-terraform@v1
+              with:
+                  terraform_version: "1.1.4"
+            - uses: actions/cache@v2
+              with:
+                  path: .terraform/
+                  key: ${{ hashFiles('.terraform.lock.hcl') }}
+
+            - run: terraform init
+            - run: terraform fmt -check
+            - run: terraform validate -no-color
+
+    test:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - run: echo Test
+
+    release:
+        needs: test
+        runs-on: ubuntu-latest
+        if: github.event_name == 'push'
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 17
+
+            - run: cp .github/.releaserc.yml .
+            - run: npm i -g semantic-release @semantic-release/changelog @semantic-release/git
+            - run: semantic-release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
