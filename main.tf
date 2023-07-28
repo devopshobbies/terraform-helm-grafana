@@ -1,3 +1,9 @@
+resource "kubernetes_namespace" "kube_namespace" {
+  metadata {
+    name     = "monitoring"
+  }
+}
+
 resource "helm_release" "grafana" {
   name       = "grafana"
   repository = "https://grafana.github.io/helm-charts"
